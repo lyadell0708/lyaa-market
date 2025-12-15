@@ -76,3 +76,4 @@ function deleteProduct(index) {
     localStorage.setItem("products", JSON.stringify(products));
     loadProducts();
 }
+
