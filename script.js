@@ -1,11 +1,20 @@
+// FORMAT RUPIAH
+function rupiah(angka) {
+    return "Rp " + angka.toLocaleString("id-ID");
+}
+
 // LOGIN
 function login() {
     const username = document.getElementById("username").value;
-    if (username === "") {
-        alert("Username tidak boleh kosong");
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+        alert("Username dan password wajib diisi");
         return;
     }
+
     localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
     window.location.href = "dashboard.html";
 }
 
@@ -22,13 +31,14 @@ function cekLogin() {
 // LOGOUT
 function logout() {
     localStorage.removeItem("username");
+    localStorage.removeItem("password");
     window.location.href = "index.html";
 }
 
 // TAMBAH PRODUK
 function addProduct() {
     const name = document.getElementById("productName").value;
-    const price = document.getElementById("productPrice").value;
+    const price = parseInt(document.getElementById("productPrice").value);
     const image = document.getElementById("productImage").files[0];
 
     if (!name || !price || !image) {
@@ -43,7 +53,6 @@ function addProduct() {
         localStorage.setItem("products", JSON.stringify(products));
         loadProducts();
 
-        // reset input
         document.getElementById("productName").value = "";
         document.getElementById("productPrice").value = "";
         document.getElementById("productImage").value = "";
@@ -62,11 +71,30 @@ function loadProducts() {
             <div class="product-card">
                 <img src="${p.image}">
                 <h3>${p.name}</h3>
-                <p>Rp ${p.price}</p>
-                <button onclick="deleteProduct(${index})">Hapus Produk</button>
+                <p>${rupiah(p.price)}</p>
+
+                <input type="number" min="1" value="1" id="qty-${index}">
+                <button onclick="orderProduct(${index})">Order</button>
+                <button onclick="deleteProduct(${index})">Hapus</button>
             </div>
         `;
     });
+}
+
+// ORDER PRODUK
+function orderProduct(index) {
+    const qty = parseInt(document.getElementById(`qty-${index}`).value);
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    const product = products[index];
+
+    const total = product.price * qty;
+
+    alert(`
+Pesanan Berhasil!
+Produk : ${product.name}
+Jumlah : ${qty}
+Total  : ${rupiah(total)}
+    `);
 }
 
 // HAPUS PRODUK
@@ -76,4 +104,3 @@ function deleteProduct(index) {
     localStorage.setItem("products", JSON.stringify(products));
     loadProducts();
 }
-
