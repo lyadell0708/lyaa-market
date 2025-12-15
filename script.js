@@ -42,6 +42,11 @@ function addProduct() {
         products.push({ name, price, image: reader.result });
         localStorage.setItem("products", JSON.stringify(products));
         loadProducts();
+
+        // reset input
+        document.getElementById("productName").value = "";
+        document.getElementById("productPrice").value = "";
+        document.getElementById("productImage").value = "";
     };
     reader.readAsDataURL(image);
 }
@@ -52,13 +57,22 @@ function loadProducts() {
     list.innerHTML = "";
     const products = JSON.parse(localStorage.getItem("products")) || [];
 
-    products.forEach(p => {
+    products.forEach((p, index) => {
         list.innerHTML += `
             <div class="product-card">
                 <img src="${p.image}">
                 <h3>${p.name}</h3>
                 <p>Rp ${p.price}</p>
+                <button onclick="deleteProduct(${index})">Hapus Produk</button>
             </div>
         `;
     });
+}
+
+// HAPUS PRODUK
+function deleteProduct(index) {
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    products.splice(index, 1);
+    localStorage.setItem("products", JSON.stringify(products));
+    loadProducts();
 }
