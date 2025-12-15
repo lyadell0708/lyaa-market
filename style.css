@@ -74,5 +74,47 @@ function deleteProduct(index) {
     const products = JSON.parse(localStorage.getItem("products")) || [];
     products.splice(index, 1);
     localStorage.setItem("products", JSON.stringify(products));
+    /* LANDING PAGE */
+.landing-body {
+    background: linear-gradient(135deg, #ffafcc, #ffc8dd, #ffe5ec);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-box {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(255, 105, 180, 0.35);
+}
+
+.landing-box h1 {
+    color: #ff4d6d;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.landing-box p {
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.landing-btn {
+    background: #ff69b4;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.landing-btn:hover {
+    background: #ff4d6d;
+}
+
     loadProducts();
 }
