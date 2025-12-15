@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="cekLogin()">
+
+    <nav class="navbar">
+        <span id="userWelcome"></span>
+        <button onclick="logout()">Logout</button>
+    </nav>
+
+    <section class="upload">
+        <h2>Upload Produk</h2>
+        <input type="text" id="productName" placeholder="Nama Produk">
+        <input type="number" id="productPrice" placeholder="Harga Produk">
+        <input type="file" id="productImage">
+        <button onclick="addProduct()">Upload</button>
+    </section>
+
+    <section class="products" id="productList"></section>
+
+    <script src="script.js"></script>
+</body>
+</html>
